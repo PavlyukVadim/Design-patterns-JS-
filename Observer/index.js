@@ -1,15 +1,34 @@
 const { Observable } = require('./Observable');
-const { Observer } = require('./Observer');
 
+const f2 = function() {
+  return this.state = {
+    value: this.parents.a.state + this.parents.b.state,
+  };
+};
 
-const observable = new Observable();
+const f3 = function() {
+  return this.state = {
+    value: this.parents.c.state * 2,
+  };
+};
 
-const observer1 = new Observer(1);
-const observer2 = new Observer('a');
-const observer3 = new Observer(true);
+const a = new Observable('a', {value: 1}, []);
+const b = new Observable('b', {value: 1}, []);
+const c = new Observable('c', {value: 0}, [f2]);
+const d = new Observable('d', {value: 0}, [f3]);
 
-observable.subscribe(observer1);
-observable.subscribe(observer2);
-observable.subscribe(observer3);
+a.subscribe(c);
+b.subscribe(c);
+c.subscribe(d);
 
-observable.notifySubscribers();
+setInterval(() => (
+  a.state = {
+    value: Math.floor(Math.random() * 10),
+  }
+), 5000);
+
+setInterval(() => (
+  b.state = {
+    value: Math.floor(Math.random() * 10),
+  }
+), 5000);
