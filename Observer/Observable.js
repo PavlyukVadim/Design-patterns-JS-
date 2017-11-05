@@ -14,21 +14,4 @@ class Observable {
   }
 };
 
-const observable = new Observable();
-observable.subscribe(1)
-observable.subscribe('a')
-observable.subscribe(true)
-
-observable.notifySubscribers();
-
-
-
-
-
-
-
-
-
-
-
-
+exports.Observable = Observable; // CommonJS
