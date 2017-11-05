@@ -1,16 +1,16 @@
-function Universe() {
-  var instance = this;
-  
-  this.start_time = 0;
-  this.bang = "Big";
-  
-  // redefining constructor
-  Universe = function () {
-    return instance;
-  };
+let instance = null;
+
+class Singleton {
+  constructor() {
+    if (!instance) {
+      instance = this;
+    }
+    this.time = new Date();
+    return instance; 
+  }
 }
 
-var uni = new Universe();
-var uni2 = new Universe();
+var a = new Singleton();
+var b = new Singleton();
 
-console.log(uni == uni2);
+console.log(a == b);
